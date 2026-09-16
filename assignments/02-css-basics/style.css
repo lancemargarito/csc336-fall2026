@@ -1,0 +1,60 @@
+
+
+img {
+    width:200px;
+    text-align:center;
+    display:inline-block;
+    margin:15px;
+}
+
+body {
+   background-color:darkolivegreen;
+}
+
+a {
+    background-color:aquamarine;
+}
+
+a:hover {
+    background-color: chartreuse;
+}
+
+.weird_images_class{
+    display: flex;
+}
+
+.intro_outro_class {
+    height:50px;
+    width: 100%;
+    background-color: black;
+    color:aliceblue;
+    text-align:center;
+
+}
+
+.image_gradient_background {
+    background-image:linear-gradient(chartreuse,coral);
+}
+
+
+#Non-National-Park-ID {
+    color:blueviolet;
+    border-radius: 50px;
+    text-align: center;
+}
+
+otherheader {
+    text-decoration: underline;
+    font-size: 20;
+    font-weight: 600;
+    color:aqua;
+    background-color:coral;
+    padding: 5px;
+}
+
+p {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: navy 1px 1px;
+
+}
+
