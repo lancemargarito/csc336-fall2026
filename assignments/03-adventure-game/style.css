@@ -1,0 +1,66 @@
+
+
+body {
+    font-family:monospace;
+    background-color:darkslategrey;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+
+p {
+    line-height: 2;
+    font-size: 20px;
+    color:black;
+}
+
+
+
+h1 {
+    color:crimson;
+    font-size: 40px;
+    padding: 5px;
+}
+
+h3 {
+    color: cornflowerblue;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    border-bottom: 1px chartreuse;
+    padding-bottom: 5px;
+}
+
+#buttonDataDiv {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: darkslategray;
+    border-radius: 4px;
+    font-style: italic;
+    color: white;
+}
+
+button {
+    background-color:cadetblue;
+    color:white;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    
+}
+
+button:hover {
+    background-color:darksalmon;
+}
+
+li {
+    background-color:beige;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+li:hover {
+    border-color: #8ecae6;
+}
