@@ -3,10 +3,25 @@ img {
 }
 
 button {
-    height: 20px;
-    width: 20px;
+    height: auto;
+    width: auto;
+    margin: 5px;
 }
 
 .toggled {
-    color: green;
+    background-color: green;
+}
+
+.checkmarkBtn {
+    height: 20px;
+    width: 20px;
+    border-style: ridge;
+}
+
+p {
+    width: 400px;
+}
+
+#top {
+    display: flex;
 }

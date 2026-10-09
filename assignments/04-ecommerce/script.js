@@ -3,7 +3,7 @@ let product_catalog = [
         recordName: "LA",
         artist: "Blu",
         genre: "Hip-Hop",
-        price: "19.99",
+        price: 19.99,
         albumPhoto: "https://f4.bcbits.com/img/a4293948391_10.jpg",
         description: `Alongside Oakland-bred producer Sndtrak, Blu completely leans
         into the aesthetic of West Count Rap that most fans associate with the region by
@@ -13,7 +13,7 @@ let product_catalog = [
         recordName: "Mellon Collie and The Infinite Sadness",
         artist: "The Smashing Pumpkins",
         genre: "Alternative Rock",
-        price: "39.99",
+        price: 39.99,
         albumPhoto: "https://thumb.wikimedia.org/wikipedia/en/thumb/7/76/The_Smashing_Pumpkins_-_Mellon_Collie_And_The_infinite_Sadness.jpg/250px-The_Smashing_Pumpkins_-_Mellon_Collie_And_The_infinite_Sadness.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
         description: `The Smashing Pumpkin's third studio album is a 28-track record released as a triple-LP,
         featuring a wide array of music styles that include art rock, grunge, alternative rock, and heavy metal. The 
@@ -25,7 +25,7 @@ let product_catalog = [
         recordName: "The Return of the Space Cowboy",
         artist: "Jamiroquai",
         genre: "Acid Jazz",
-        price: "29.99",
+        price: 29.99,
         albumPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4oBiV-91Faoj7GjJvAUHVAPb7bDipmDGv7OA0SYSmbA&s=10",
         description: `Following the musical direction of their debut, Emergency on Planet Earth (1993),
         this English funk and acid jazz album is characterized by complex songwriting that addresses street life, hope, loss,
@@ -35,7 +35,7 @@ let product_catalog = [
         recordName: "Glowing in the Darkest Night",
         artist: "Pretty Lights",
         genre: "Electronic",
-        price: "29.99",
+        price: 29.99,
         albumPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeBfI5luN5___kRT9HIzDGL--b794xsRA3wpiE0R5PRA&s=10",
         description: `Pretty Light's 2010 EP is a soundscape of instruments, samples, and glitches
         that frequently veers across a variety of styles to create a dark, brooding, and bouncy project
@@ -46,7 +46,7 @@ let product_catalog = [
         recordName: "Black of Both Sides",
         artist: "Yasiin Bey",
         genre: "Hip-Hop",
-        price: "29.99",
+        price: 29.99,
         albumPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOMiIjtBiC1msaFNgBXo_9Kb-q3qHZKgiAByd8La9dUA&s=10",
         description: `Formerly known as Mos Def, Yasiin Bey's debut album Black on Both Sides follows up
         the successful Mos Def and Talib Kweli Are Black Star (1999) with an album that 
@@ -56,7 +56,7 @@ let product_catalog = [
         recordName: "新しい日の誕生",
         artist: "2814",
         genre: "Ambient",
-        price: "29.99",
+        price: 29.99,
         albumPhoto: "https://f4.bcbits.com/img/a4099353330_1x1_700.avif",
         description: `The British-American collaborative ambient and vaporwave project
         of Electronic Musicians Telepath and HKE can be described as a "late night cruise through
@@ -67,7 +67,7 @@ let product_catalog = [
         recordName: "King's Disease III",
         artist: "Nas",
         genre: "Hip-Hop",
-        price: "19.99",
+        price: 19.99,
         albumPhoto: "https://upload.wikimedia.org/wikipedia/en/9/92/King%27s_Disease_III.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail_unscaled",
         description: `The third entry in Nas' King's Disease series of album and his 
         sixteenth studio album overall, King's Disease III is both complex and effortless as Nas 
@@ -78,7 +78,7 @@ let product_catalog = [
         recordName: "Discovery",
         artist: "Daft Punk",
         genre: "French House",
-        price: "49.99",
+        price: 49.99,
         albumPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrQe3smF2mQk9R-1PpweOyHoP6vpxEAbhlHdNOMKLrqg&s=10",
         description: `Moving from the Chicago House of their first album Homework (1997), this album
         delves into a house style inspired by disco, post-disco, garage house, and R&B. It also serves
@@ -90,8 +90,8 @@ let product_catalog = [
         recordName: "Since I Left You",
         artist: "The Avalanches",
         genre: "Plundertronics",
+        price: 29.99,
         albumPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcVSftY5fcaXCsYZzN8qffMBhuDiBh29jJ0sUVrW8WUw&s=10",
-        price: "29.99",
         description: `
         The Avalanches' highly acclaimed debut studio album Since I Left You uses more than 900 individual samples
         to make a "kaleidoscope" of music that explores various emotions and moods while sounding 
@@ -101,7 +101,12 @@ let product_catalog = [
 
 ]
 
+let selectedAlbums = []
+let cartItems = []
+
 rootDiv = document.querySelector("#root")
+cartDiv = document.querySelector("#cart")
+
 
 function renderAlbums(individualProduct) {
     let recordNameH1 = document.createElement("h1");
@@ -130,20 +135,120 @@ function renderAlbums(individualProduct) {
     rootDiv.append(descriptionP);
 
     let checkmarkButton = document.createElement("button");
+    checkmarkButton.classList.add("checkmarkBtn")
     checkmarkButton.innerHTML = "";
+    rootDiv.append(checkmarkButton);
     checkmarkButton.addEventListener("click", e =>
             {
         console.log("This button belongs to " + individualProduct.recordName)
+        if (checkmarkButton.classList.contains("toggled")) {
+            checkmarkButton.classList.remove("toggled");
+            selectedAlbums = selectedAlbums.filter(
+                album => album !== individualProduct
+            )
+        } else {
+            checkmarkButton.classList.add("toggled");
+            selectedAlbums.push(individualProduct);
+        }
+        
+        updateAddSelectedButton();
+
             }
+        // Probably not the best way to go about this but works for now.
 
     )
 
-
-    rootDiv.append(checkmarkButton);
+    let addToCartButton = document.createElement("button");
+    addToCartButton.innerHTML = "Add To Cart";
+    rootDiv.append(addToCartButton);
+    addToCartButton.addEventListener("click", e => {
+        addToCart(individualProduct)
+    }
+    )
 
 }
 
-product_catalog.forEach(renderAlbums)
+function renderCart() {
+    cartDiv.innerHTML = "";
+
+    let cartH1 = document.createElement("h1");
+    cartH1.innerHTML = "Your Cart";
+    cartDiv.append(cartH1);
+
+    cartItems.forEach(album => {
+        let item = document.createElement("div");
+        item.classList.add("cart-item");
+
+        let recordNameP = document.createElement("p");
+        recordNameP.innerHTML = album.artist + ' - "' + album.recordName + '"';
+        item.append(recordNameP)
+
+        let priceP = document.createElement("p");
+        priceP.innerHTML = "Price: $" + album.price.toFixed(2);
+        item.append(priceP);
+        
+        cartDiv.append(item);
+    });
+
+    let total = 0;
+
+    cartItems.forEach(album => {
+    total = total + album.price;
+    });
+
+    let totalDiv = document.createElement("div");
+    let totalPrice = document.createElement("p");
+    totalPrice.innerHTML = "Total: $" + total.toFixed(2) + " (" + cartItems.length + " item(s))";
+    totalDiv.append(totalPrice);
+
+    cartDiv.append(totalDiv);
+}
+
+
+function addToCart(individualProduct) {
+    cartItems.push(individualProduct);
+    renderCart();
+}
+
+
+
+let addSelectedButton = document.createElement("button");
+
+addSelectedButton.innerHTML = "Add Selected to Cart";
+addSelectedButton.style.display = "none";
+
+rootDiv.append(addSelectedButton);
+
+function updateAddSelectedButton() {
+    if (selectedAlbums.length > 0) {
+        addSelectedButton.style.display = "block";
+    } else {
+        addSelectedButton.style.display = "none";
+    }
+}
+
+
+addSelectedButton.addEventListener("click", (e) => {
+
+    selectedAlbums.forEach(album => {
+        addToCart(album);
+    });
+
+    selectedAlbums = [];
+
+    checkmarkButtons = document.querySelectorAll(".checkmarkBtn");
+
+    checkmarkButtons.forEach(button => {
+        button.classList.remove("toggled");
+    });
+
+    updateAddSelectedButton();
+});
+
+
+product_catalog.forEach(renderAlbums);
+renderCart();
+
 
 
 
