@@ -107,6 +107,10 @@ let cartItems = []
 rootDiv = document.querySelector("#root")
 cartDiv = document.querySelector("#cart")
 
+let storeIntro = document.createElement("h1");
+storeIntro.innerHTML = "Welcome to the Record Store!";
+rootDiv.append(storeIntro);
+
 
 function renderAlbums(individualProduct) {
     let recordNameH1 = document.createElement("h1");
@@ -114,7 +118,7 @@ function renderAlbums(individualProduct) {
     rootDiv.append(recordNameH1);
 
     let artistH2 = document.createElement("h2");
-    artistH2.innerHTML = individualProduct.artist;
+    artistH2.innerHTML = "By " + individualProduct.artist;
     rootDiv.append(artistH2);
 
     let genreH3 = document.createElement("h3");
@@ -122,12 +126,11 @@ function renderAlbums(individualProduct) {
     rootDiv.append(genreH3);
 
     let priceH4 = document.createElement("h4");
-    priceH4.innerHTML = individualProduct.price;
+    priceH4.innerHTML = "$" + individualProduct.price;
     rootDiv.append(priceH4)
 
     let albumPhotoSrc = document.createElement("img");
     albumPhotoSrc.src = individualProduct.albumPhoto;
-    albumPhotoSrc
     rootDiv.append(albumPhotoSrc);
 
     let descriptionP = document.createElement("p");
