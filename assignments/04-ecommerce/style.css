@@ -59,3 +59,8 @@ body {
 h1, h2, h3, h4, img {
     margin-left: 10px;
 }
+
+form {
+    background-color: black;
+    width: 300px;
+}

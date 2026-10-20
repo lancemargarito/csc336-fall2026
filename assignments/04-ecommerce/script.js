@@ -252,77 +252,133 @@ addSelectedButton.addEventListener("click", (e) => {
 product_catalog.forEach(renderAlbums);
 renderCart();
 
-// Everything above is from assignment four.
+// // Everything above is from assignment four.
 
-let catalogItemForm = document.querySelector("#newCatalogItemForm")
+let catalogItemForm = document.querySelector("#newCatalogItemForm");
 let localStorageKey = "products";
 let additionalProductCatalog = [];
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    let localStorageData = localStorage.getItem(localStorageKey);
-    console.log(localStorageData);
 
-    if (localStorageData !== null) {
-        additionalProductCatalog = JSON.parse(localStorageData);
-    }
+let additionalProductsDiv = document.createElement("div");
+rootDiv.append(additionalProductsDiv);
+
+document.addEventListener('DOMContentLoaded', (event) => {
+     let localStorageData = localStorage.getItem(localStorageKey);
+     console.log(localStorageData);
+
+     if (localStorageData !== null) {
+         additionalProductCatalog = JSON.parse(localStorageData);
+     }
     
-    drawNewProducts(additionalProductCatalog);
-}
-)
+     drawNewProducts(additionalProductCatalog);
+ }
+ )
+
 
 catalogItemForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    
+
     let productData = new FormData(catalogItemForm);
     let product = {};
 
     productData.forEach((value, name) => {
         product[name] = value;
-    })
+    });
+
+    product.price = Number(product.price);
+
+    if (product.price <= 15) {
+        alert("We can't afford a price this low (less than $15)!"); // had to search this up
+        return;
+    }
 
     additionalProductCatalog.push(product);
 
-    console.log(additionalProductCatalog);
     drawNewProducts(additionalProductCatalog);
 
+    catalogItemForm.reset();
 });
 
-
 function drawNewProducts(data) {
+    additionalProductsDiv.innerHTML = "";
 
-    for (let products of data) {
-        let productDiv = document.createElement("div");
-        rootDiv.append(productDiv);
+    data.forEach((product) => {
+    let productDiv = document.createElement("div");
+    productDiv.classList.add("album-item");
 
-        let recordNameH1 = document.createElement("h1");
-        recordNameH1.innerHTML = products.recordName
-        productDiv.append(recordNameH1);
+    let recordNameH1 = document.createElement("h1");
+    recordNameH1.innerHTML = product.recordName;
+    productDiv.append(recordNameH1);
 
-        let artistH2 = document.createElement("h2");
-        artistH2.innerHTML = "By " + products.artist;
-        productDiv.append(artistH2);
+    let artistH2 = document.createElement("h2");
+    artistH2.innerHTML = "By " + product.artist;
+    productDiv.append(artistH2);
 
-        let genreH3 = document.createElement("h3");
-        genreH3.innerHTML = products.genre;
-        productDiv.append(genreH3);
+    let genreH3 = document.createElement("h3");
+    genreH3.innerHTML = product.genre;
+    productDiv.append(genreH3);
 
-        let priceH4 = document.createElement("h4");
-        priceH4.innerHTML = "$" + products.price;
-        productDiv.append(priceH4)
+    let priceH4 = document.createElement("h4");
+    priceH4.innerHTML = "$" + Number(product.price).toFixed(2);
+    productDiv.append(priceH4);
 
-        let albumPhotoSrc = document.createElement("img");
-        albumPhotoSrc.src = products.albumPhoto
-        productDiv.append(albumPhotoSrc);
+    let albumPhoto = document.createElement("img");
+    albumPhoto.src = product.albumPhoto;
+    productDiv.append(albumPhoto);
 
-        let descriptionP = document.createElement("p");
-        descriptionP.innerHTML = products.description;
-        productDiv.append(descriptionP);
+    let descriptionP = document.createElement("p");
+    descriptionP.innerHTML = product.description;
+    productDiv.append(descriptionP);
 
+    let checkmarkButton = document.createElement("button");
+    checkmarkButton.type = "button"; // was being counted as submitting form otherwise
+    checkmarkButton.classList.add("checkmarkBtn");
+
+    productDiv.append(checkmarkButton);
+
+    checkmarkButton.addEventListener("click", () => {
+        if (checkmarkButton.classList.contains("toggled")) {
+            checkmarkButton.classList.remove("toggled");
+
+            selectedAlbums = selectedAlbums.filter(
+                (album) => album !== product
+            );
+        } else {
+            checkmarkButton.classList.add("toggled");
+            selectedAlbums.push(product);
+            }
+
+            updateAddSelectedButton();
+        });
+
+        
+        let addToCartButton = document.createElement("button");
+        addToCartButton.innerHTML = "Add To Cart";
+        productDiv.append(addToCartButton);
+
+        addToCartButton.addEventListener("click", (event) => {
+            addToCart(product);
+        });
+
+        additionalProductsDiv.append(productDiv);
+    });
+
+    localStorage.setItem(localStorageKey, JSON.stringify(data));
     }
-    
-    let jsonProductData = JSON.stringify(data);
-    localStorage.setItem(localStorageKey, jsonProductData);
 
-}
+    let resetButton = document.createElement("button");
+    resetButton.type = "button";
+    resetButton.innerHTML = "Reset";
+    catalogItemForm.append(resetButton);
 
-    
+    resetButton.addEventListener("click", () => {
+    selectedAlbums = selectedAlbums.filter(
+    (album) => !additionalProductCatalog.includes(album)
+    );
+
+    additionalProductCatalog = [];
+    localStorage.removeItem(localStorageKey);
+
+    drawNewProducts(additionalProductCatalog);
+    updateAddSelectedButton();
+    });
