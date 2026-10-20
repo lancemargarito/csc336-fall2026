@@ -252,6 +252,77 @@ addSelectedButton.addEventListener("click", (e) => {
 product_catalog.forEach(renderAlbums);
 renderCart();
 
+// Everything above is from assignment four.
+
+let catalogItemForm = document.querySelector("#newCatalogItemForm")
+let localStorageKey = "products";
+let additionalProductCatalog = [];
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    let localStorageData = localStorage.getItem(localStorageKey);
+    console.log(localStorageData);
+
+    if (localStorageData !== null) {
+        additionalProductCatalog = JSON.parse(localStorageData);
+    }
+    
+    drawNewProducts(additionalProductCatalog);
+}
+)
+
+catalogItemForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    
+    let productData = new FormData(catalogItemForm);
+    let product = {};
+
+    productData.forEach((value, name) => {
+        product[name] = value;
+    })
+
+    additionalProductCatalog.push(product);
+
+    console.log(additionalProductCatalog);
+    drawNewProducts(additionalProductCatalog);
+
+});
 
 
+function drawNewProducts(data) {
 
+    for (let products of data) {
+        let productDiv = document.createElement("div");
+        rootDiv.append(productDiv);
+
+        let recordNameH1 = document.createElement("h1");
+        recordNameH1.innerHTML = products.recordName
+        productDiv.append(recordNameH1);
+
+        let artistH2 = document.createElement("h2");
+        artistH2.innerHTML = "By " + products.artist;
+        productDiv.append(artistH2);
+
+        let genreH3 = document.createElement("h3");
+        genreH3.innerHTML = products.genre;
+        productDiv.append(genreH3);
+
+        let priceH4 = document.createElement("h4");
+        priceH4.innerHTML = "$" + products.price;
+        productDiv.append(priceH4)
+
+        let albumPhotoSrc = document.createElement("img");
+        albumPhotoSrc.src = products.albumPhoto
+        productDiv.append(albumPhotoSrc);
+
+        let descriptionP = document.createElement("p");
+        descriptionP.innerHTML = products.description;
+        productDiv.append(descriptionP);
+
+    }
+    
+    let jsonProductData = JSON.stringify(data);
+    localStorage.setItem(localStorageKey, jsonProductData);
+
+}
+
+    
