@@ -14,7 +14,7 @@ let currentCardFormatted;
 let previousCardFormatted;
 
 let previousCardDiv = document.createElement("div");
-previousCardDiv.innerHTML = "The last card was: " + previousCard;
+previousCardDiv.innerHTML = "The last card was: " + previousCardFormatted;
 cardDiv.append(previousCard);
 
 let currentCardDiv = document.createElement("div");
@@ -48,8 +48,8 @@ startForm.addEventListener("submit", async (e) => {
     previousCard = "No previous card."
     currentCard = await drawCard(currentDeck);
 
-    currentCardFormatted = "No previous card."
-    previousCardFormatted = currentCard.value + " of " + currentCard.suit;
+    previousCardFormatted = "No previous card."
+    currentCardFormatted = currentCard.value + " of " + currentCard.suit;
 
     let lowerHigherForm = document.createElement("form");
 
@@ -66,7 +66,7 @@ startForm.addEventListener("submit", async (e) => {
     startForm.remove();
 })
 
-higherLowerForm.addEventListener("submit", async (e) => {
+lowerHigherForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
 
     let clickedButton = e.submitter; // Checking which button was clicked.
