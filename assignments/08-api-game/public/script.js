@@ -45,19 +45,4 @@ higherLowerForm.addEventListener("submit", (e) => {
 
 }) 
 
-async function setup() {
-    let backOfCard = await fetch("https://card-game-0kfd.onrender.com/backOfCard");
-
-    console.log(backOfCard);
-    
-    let firstCard = document.createElement("img");
-    cardImageDiv.append(firstCard);
-    firstCard.src = backOfCard;
-
-    let secondCard = document.createElement("img")
-    cardImageDiv.append(secondCard);
-    secondCard.src = backOfCard;
-
-}
-
-setup();
+cardImageDiv.append
