@@ -13,6 +13,7 @@ async function getDeck() {
 
 async function drawCard(deck) {
     let card = await fetch("https://card-game-0kfd.onrender.com/drawcard/" + deck)
+    let json = await card.json();
     return card;
 }
 
