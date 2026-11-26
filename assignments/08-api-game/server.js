@@ -69,10 +69,10 @@ app.get("/drawcard/:deckID", async (req, res) => {
 
 app.get("/backOfCard", async (req, res) => {
     backImage = await fetch("https://deckofcardsapi.com/static/img/back.png");
-    res.send(backImage);
-}
+    let backImageJson = await backImage.json();
 
-)
+    return backImageJson; // test
+})
 
 app.listen(port, () => {
     console.log("Server running.");
