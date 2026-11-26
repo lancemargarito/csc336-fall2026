@@ -5,19 +5,19 @@ let leaderboardDiv = document.querySelector("#leaderboardDiv");
 
 let currentDeck;
 
-
-
 async function getDeck() {
     let newDeck = await fetch("https://card-game-0kfd.onrender.com/newdeck");
     let json = await newDeck.json();
-
     return json.deck_id; // Only intial necessary part to hand over to frontend is deck ID.
 }
 
-async function drawCard() {
-    let card = await fetch("https://card-game-0kfd.onrender.com/drawcard/" + currentDeck)
-    console.log(card)
+async function drawCard(deck) {
+    let card = await fetch("https://card-game-0kfd.onrender.com/drawcard/" + deck)
+    return card;
+}
 
+function lowerOrHigher(card_val, guess) {
+    
 }
 
 higherLowerForm.addEventListener("submit", (e) => {
@@ -32,6 +32,9 @@ higherLowerForm.addEventListener("submit", (e) => {
         console.log(currentDeck);
 
         clickedButton.remove();
+
+        let card = drawCard(currentDeck);
+        console.log("card is:" + card);
         
         // Calls getDeck, which fetches from my server, which in turn fetches from the card of
         // decks API. The only part of the json that the frontend ultimately gets is the deckID,
@@ -39,10 +42,6 @@ higherLowerForm.addEventListener("submit", (e) => {
 
     } else {
        
-
     }
 
-
 }) 
-
-cardImageDiv.append

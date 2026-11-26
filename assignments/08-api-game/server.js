@@ -34,24 +34,21 @@ app.get("/drawcard/:deckID", async (req, res) => {
     let deckID = req.params.deckID
 
     let card = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=1");
-    let cardJson = await card.json();
+    let json = await card.json();
 
-    return cardJson.cards[1];
+    return json;
 }) // Simplifying how much is returned to frontend, so that they only get the card code and images.
 
 app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
     let deckID = req.params.deckID;
+
     pileFetch = "https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash" + "/add/?cards=" + cardCode
 
-    let discarded = await fetch(pileFetch);
-    discardedJson = await discarded.json();
-    res.send(discardedJson);
 })
 
-
 app.get("/guess/:higherOrLower", async (req, res) => {
-    const guess = req.params.higherOrLower;
+    let guess = req.params.higherOrLower;
     
     if (guess == "higher") {
         console.log("higher");
@@ -66,17 +63,6 @@ app.get("/guess/:higherOrLower", async (req, res) => {
     res.send(nextCardJson);
 
 })
-
-// app.get("/backOfCard", async (req, res) => {
-    
-//     backImage = await fetch("https://deckofcardsapi.com/static/img/back.png");
-
-//     let imageBuffer = Buffer.from(await response.arrayBuffer());
-
-//     res.set("Content-Type", "image/png");
-//     res.send(imageBuffer);
-//     // test cause im running a security issue
-// })
 
 app.listen(port, () => {
     console.log("Server running.");
