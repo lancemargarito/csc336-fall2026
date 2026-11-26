@@ -20,20 +20,18 @@ function lowerOrHigher(card_val, guess) {
     
 }
 
-higherLowerForm.addEventListener("submit", (e) => {
+higherLowerForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
-    console.log("submitted!");
 
     let clickedButton = e.submitter; // checking which button was clicked
 
     if (clickedButton.value == "Start") {
-
-        currentDeck = getDeck();
+        currentDeck = await getDeck();
         console.log(currentDeck);
 
         clickedButton.remove();
 
-        let card = drawCard(currentDeck);
+        let card = await drawCard(currentDeck);
         console.log("card is:" + card);
         
         // Calls getDeck, which fetches from my server, which in turn fetches from the card of
