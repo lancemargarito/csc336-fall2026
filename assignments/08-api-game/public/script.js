@@ -1,4 +1,5 @@
-let startForm = document.querySelector("#startForm")
+let startForm = document.querySelector("#startForm");
+let lowerHigherForm = document.querySelector("#lowerHigherForm");
 
 let cardDiv = document.querySelector("#cardDiv");
 let leaderboardDiv = document.querySelector("#leaderboardDiv");
@@ -51,11 +52,8 @@ startForm.addEventListener("submit", async (e) => {
     let currentCardDiv = document.createElement("div");
     console.log("Current card is:")
     console.log(currentCard)
-    currentCardDiv.innerHTML = "The current card is the " + currentCard;
+    currentCardDiv.innerHTML = "The current card is the " + currentCardFormatted;
     cardDiv.append(currentCardDiv);
-
-    let lowerHigherForm = document.createElement("form");
-    lowerHigherForm.id = "lowerHigherForm";
 
     let lowerButton = document.createElement("button");
     lowerButton.value = "lower";
@@ -69,8 +67,6 @@ startForm.addEventListener("submit", async (e) => {
 
     startForm.remove();
 })
-
-let lowerHigherForm = document.querySelector("#lowerHigherForm");
 
 lowerHigherForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
