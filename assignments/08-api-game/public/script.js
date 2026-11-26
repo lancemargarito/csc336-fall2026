@@ -52,6 +52,7 @@ startForm.addEventListener("submit", async (e) => {
     currentCardFormatted = currentCard.value + " of " + currentCard.suit;
 
     let lowerHigherForm = document.createElement("form");
+    lowerHigherForm.id = "lowerHigherForm";
 
     let lowerButton = document.createElement("button");
     lowerButton.value = "lower";
@@ -66,13 +67,14 @@ startForm.addEventListener("submit", async (e) => {
     startForm.remove();
 })
 
+let lowerHigherForm = document.querySelector("#lowerHigherForm");
+
 lowerHigherForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
 
     let clickedButton = e.submitter; // Checking which button was clicked.
-    
-    result 
-    
+
+    console.log(clickedButton);
 
 }) 
 
