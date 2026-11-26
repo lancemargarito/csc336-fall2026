@@ -33,12 +33,8 @@ higherLowerForm.addEventListener("submit", async (e) => {
         clickedButton.remove();
 
         let drawnCard = await drawCard(currentDeck);
-        console.log("card data:" + drawnCard);
+        console.log(drawnCard);
         
-        // Calls getDeck, which fetches from my server, which in turn fetches from the card of
-        // decks API. The only part of the json that the frontend ultimately gets is the deckID,
-        // then the start button is removed afterwards.
-
     } else {
        
     }
