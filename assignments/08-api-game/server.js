@@ -35,7 +35,7 @@ app.get("/drawcard/:deckID", async (req, res) => {
     let card = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=1");
     let json = await card.json();
 
-    res.send(json)
+    res.send(json.cards) // Only sending relevant data from cards array.
 }) // Drawing a card from a given deck.
 
 app.get("/discard/:deckID/:cardCode", async (req,res) => {
