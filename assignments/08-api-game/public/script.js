@@ -1,10 +1,17 @@
-let higherButton = document.querySelector("#higherButton");
-let lowerButton = document.querySelector("#lowerButton");
 let higherLowerForm = document.querySelector("#higherLowerForm");
 
 let cardImageDiv = document.querySelector("#cardImageDiv");
 let leaderboardDiv = document.querySelector("#leaderboardDiv");
 
+let currentDeck;
+
+
+async function getDeck() {
+    let newDeck = await fetch("https://card-game-0kfd.onrender.com/newdeck");
+    let json = await newDeck.json();
+
+    return json.deck_id; // Only intial necessary part to hand over to frontend is deck ID.
+}
 
 
 
@@ -14,20 +21,12 @@ higherLowerForm.addEventListener("submit", (e) => {
 
     let clickedButton = e.submitter; // checking which button was clicked
 
-    // doesn't do anything beyond console right now, but this makes sure I can detect whether
-    // a player thinks the next card will be higher or lower value
-    // if (clickedButton.value == "higherButton") {
-    //     console.log("Next card will be higher value.")
-    // } else if (clickedButton.value == "lowerButton") {
-    //     console.log("Next card will be lower.")
-    // } else if (clickedButton.value == "restart") {
-    //     console.log("Restart game.")
-    // }
-    if (clickedButton.value == "restart") {
-        console.log("restart game")
+    if (clickedButton.value == "Start") {
+        currentDeck = getDeck();
+        console.log(currentDeck);
+
     } else {
-        
-        // let response = await fetch("/guess/:higherOrLower")
+       console.log("button other than start");
 
     }
 

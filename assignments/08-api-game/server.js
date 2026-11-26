@@ -7,7 +7,7 @@ import { MongoClient, ObjectId } from "mongodb";
 let app = express();
 let port = process.env.PORT || 3000;
 
-// app.use(express.json());
+app.use(express.json());
 app.use(express.static("public"));
 
 let client = new MongoClient(process.env.MONGODB_URI);
@@ -64,19 +64,6 @@ app.get("/guess/:higherOrLower", async (req, res) => {
     res.send(nextCardJson);
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(port, () => {
     console.log("Server running at http://localhost:" + port);
