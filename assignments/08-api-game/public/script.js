@@ -49,7 +49,9 @@ startForm.addEventListener("submit", async (e) => {
     cardDiv.append(previousCardDiv);
 
     let currentCardDiv = document.createElement("div");
-    currentCardDiv.innerHTML = "The current card is the " + currentCard
+    console.log("Current card is:")
+    console.log(currentCard)
+    currentCardDiv.innerHTML = "The current card is the " + currentCard;
     cardDiv.append(currentCardDiv);
 
     let lowerHigherForm = document.createElement("form");
