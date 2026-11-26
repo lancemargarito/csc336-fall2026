@@ -38,12 +38,18 @@ app.get("/drawcard/:deckID", async (req, res) => {
     res.send(json.cards) // Only sending relevant data from cards array.
 }) // Drawing a card from a given deck.
 
+
+
 app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
     let deckID = req.params.deckID;
 
-    pileFetch = "https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash" + "/add/?cards=" + cardCode
+    let pile = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash" + "/add/?cards=" + cardCode);
+    let json = await pile.json();
 
+    console.log(cardCode + "discarded")
+
+    res.send(json) // I don't actually need anything sent back, but I'm having the server send the response so I can verify on the front end that the card has been discarded from the actual deck.
 })
 
 app.get("/guess/:higherOrLower", async (req, res) => {

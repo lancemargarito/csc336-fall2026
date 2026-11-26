@@ -1,9 +1,19 @@
 let higherLowerForm = document.querySelector("#higherLowerForm");
 
-let cardImageDiv = document.querySelector("#cardImageDiv");
+let cardDiv = document.querySelector("#cardDiv");
 let leaderboardDiv = document.querySelector("#leaderboardDiv");
 
 let currentDeck;
+let currentCard;
+let previousCard;
+
+let previousCardDiv = document.createElement("div");
+previousCardDiv.innerHTML = "The last card was: " + previousCard;
+cardDiv.append(previousCard);
+
+let currentCardDiv = document.createElement("div");
+currentCardDiv.innerHTML = "The current card is the " + currentCard
+cardDiv.append(currentCard)
 
 async function getDeck() {
     let newDeck = await fetch("https://card-game-0kfd.onrender.com/newdeck");
@@ -17,9 +27,13 @@ async function drawCard(deck) {
     return json;
 }
 
-function lowerOrHigher(card_val, guess) {
-    
+async function discardCard(code) {
+
+    let discard = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck + "/" + code);
+    let json = await card.json();
+    return json;
 }
+
 
 higherLowerForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
@@ -34,9 +48,12 @@ higherLowerForm.addEventListener("submit", async (e) => {
 
         let drawnCard = await drawCard(currentDeck);
         console.log(drawnCard);
-        
+
+        discardCard(drawnCard.code);
+
     } else {
        
     }
 
 }) 
+
