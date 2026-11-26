@@ -35,7 +35,8 @@ async function discardCard(code) {
 startForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     currentDeck = await getDeck();
-    console.log("Deck:", currentCard)
+    console.log("Deck retrieved:")
+    console.log(currentDeck)
 
     previousCard = "No previous card."
     currentCard = await drawCard(currentDeck);
