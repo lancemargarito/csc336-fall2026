@@ -58,9 +58,6 @@ async function setup() {
     cardImageDiv.append(secondCard);
     secondCard.src = backOfCard;
 
-
-
-
 }
 
 setup();

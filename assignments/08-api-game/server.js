@@ -68,8 +68,14 @@ app.get("/drawcard/:deckID", async (req, res) => {
 // })
 
 app.get("/backOfCard", async (req, res) => {
+    
     backImage = await fetch("https://deckofcardsapi.com/static/img/back.png");
-    console.log(backImage);
+
+    let imageBuffer = Buffer.from(await response.arrayBuffer());
+
+    res.set("Content-Type", "image/png");
+    res.send(imageBuffer);
+    // test cause im running a security issue
 })
 
 app.listen(port, () => {
