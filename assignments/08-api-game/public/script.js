@@ -13,14 +13,6 @@ let previousCard;
 let currentCardFormatted;
 let previousCardFormatted;
 
-let previousCardDiv = document.createElement("div");
-previousCardDiv.innerHTML = "The last card was: " + previousCardFormatted;
-cardDiv.append(previousCardDiv);
-
-let currentCardDiv = document.createElement("div");
-currentCardDiv.innerHTML = "The current card is the " + currentCard
-cardDiv.append(currentCardDiv);
-
 async function getDeck() {
     let newDeck = await fetch("https://card-game-0kfd.onrender.com/newdeck");
     let json = await newDeck.json();
@@ -50,6 +42,14 @@ startForm.addEventListener("submit", async (e) => {
 
     previousCardFormatted = "No previous card."
     currentCardFormatted = currentCard.value + " of " + currentCard.suit;
+
+    let previousCardDiv = document.createElement("div");
+    previousCardDiv.innerHTML = "The last card was: " + previousCardFormatted;
+    cardDiv.append(previousCardDiv);
+
+    let currentCardDiv = document.createElement("div");
+    currentCardDiv.innerHTML = "The current card is the " + currentCard
+    cardDiv.append(currentCardDiv);
 
     let lowerHigherForm = document.createElement("form");
     lowerHigherForm.id = "lowerHigherForm";
