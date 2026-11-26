@@ -15,11 +15,11 @@ let previousCardFormatted;
 
 let previousCardDiv = document.createElement("div");
 previousCardDiv.innerHTML = "The last card was: " + previousCardFormatted;
-cardDiv.append(previousCard);
+cardDiv.append(previousCardDiv);
 
 let currentCardDiv = document.createElement("div");
 currentCardDiv.innerHTML = "The current card is the " + currentCard
-cardDiv.append(currentCard)
+cardDiv.append(currentCardDiv);
 
 async function getDeck() {
     let newDeck = await fetch("https://card-game-0kfd.onrender.com/newdeck");
