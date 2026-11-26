@@ -46,7 +46,7 @@ higherLowerForm.addEventListener("submit", (e) => {
 }) 
 
 async function setup() {
-    let backOfCard = await fetch("https://card-game-0kfd.onrender.com/newdeck");
+    let backOfCard = await fetch("https://card-game-0kfd.onrender.com/backOfCard");
 
     console.log(backOfCard);
     
