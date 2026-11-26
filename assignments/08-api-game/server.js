@@ -23,12 +23,11 @@ let deck_id;
 let current_card;
 
 app.get("/newdeck", async (req,res) => {
-    
     let response = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
     let json = await response.json();
 
     res.send(json)
-}) // get a deck (the id)
+}) // Get a new deck.
 
 app.get("/drawcard/:deckID", async (req, res) => {
     let deckID = req.params.deckID
@@ -36,8 +35,8 @@ app.get("/drawcard/:deckID", async (req, res) => {
     let card = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=1");
     let json = await card.json();
 
-    return json;
-}) // Simplifying how much is returned to frontend, so that they only get the card code and images.
+    res.send(json)
+}) // Drawing a card from a given deck..
 
 app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
