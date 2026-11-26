@@ -1,11 +1,17 @@
-let higherLowerForm = document.querySelector("#higherLowerForm");
+let startForm = document.querySelector("#startForm")
 
 let cardDiv = document.querySelector("#cardDiv");
 let leaderboardDiv = document.querySelector("#leaderboardDiv");
 
 let currentDeck;
+
+// These will hold the card json.
 let currentCard;
 let previousCard;
+
+// These will be strings formatted as "X of Y" of the cards.
+let currentCardFormatted;
+let previousCardFormatted;
 
 let previousCardDiv = document.createElement("div");
 previousCardDiv.innerHTML = "The last card was: " + previousCard;
@@ -34,26 +40,41 @@ async function discardCard(code) {
     return json;
 }
 
+startForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    currentDeck = await getDeck();
+    console.log("Deck:", currentCard)
+
+    previousCard = "No previous card."
+    currentCard = await drawCard(currentDeck);
+
+    currentCardFormatted = "No previous card."
+    previousCardFormatted = currentCard.value + " of " + currentCard.suit;
+
+    let lowerHigherForm = document.createElement("form");
+
+    let lowerButton = document.createElement("button");
+    lowerButton.value = "lower";
+    lowerButton.innerHTML = "Lower!";
+    lowerHigherForm.append(lowerButton);
+
+    let higherButton = document.createElement("button");
+    higherButton.value = "higher";
+    higherButton.innerHTML = "Higher!";
+    lowerHigherForm.append(higherButton);
+
+    startForm.remove();
+})
 
 higherLowerForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
 
-    let clickedButton = e.submitter; // checking which button was clicked
-
-    if (clickedButton.value == "Start") {
-        currentDeck = await getDeck();
-        console.log("This is the current deck:" + currentDeck);
-
-        clickedButton.remove();
-
-        let drawnCard = await drawCard(currentDeck);
-        console.log(drawnCard);
-
-        discardCard(drawnCard.code);
-
-    } else {
-       
-    }
+    let clickedButton = e.submitter; // Checking which button was clicked.
+    
+    result 
+    
 
 }) 
+
+
 
