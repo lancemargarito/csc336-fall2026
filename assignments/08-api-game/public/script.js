@@ -27,12 +27,12 @@ higherLowerForm.addEventListener("submit", async (e) => {
 
     if (clickedButton.value == "Start") {
         currentDeck = await getDeck();
-        console.log(currentDeck);
+        console.log("This is the current deck:" + currentDeck);
 
         clickedButton.remove();
 
-        let card = await drawCard(currentDeck);
-        console.log("card is:" + card);
+        let drawnCard = await drawCard(currentDeck);
+        console.log("card is:" + drawnCard);
         
         // Calls getDeck, which fetches from my server, which in turn fetches from the card of
         // decks API. The only part of the json that the frontend ultimately gets is the deckID,
