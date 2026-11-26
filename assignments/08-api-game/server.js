@@ -36,7 +36,7 @@ app.get("/drawcard/:deckID", async (req, res) => {
     let json = await card.json();
 
     res.send(json)
-}) // Drawing a card from a given deck..
+}) // Drawing a card from a given deck.
 
 app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
