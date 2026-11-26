@@ -30,7 +30,7 @@ async function drawCard(deck) {
 async function discardCard(code) {
 
     let discard = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck + "/" + code);
-    let json = await card.json();
+    let json = await discard.json();
     return json;
 }
 
