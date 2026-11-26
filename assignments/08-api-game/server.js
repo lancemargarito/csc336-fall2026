@@ -35,7 +35,9 @@ app.get("/drawcard/:deckID", async (req, res) => {
 
     let card = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=1");
     let cardJson = await card.json();
-})
+
+    return cardJson.cards[1];
+}) // Simplifying how much is returned to frontend, so that they only get the card code and images.
 
 app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
@@ -64,6 +66,13 @@ app.get("/guess/:higherOrLower", async (req, res) => {
     res.send(nextCardJson);
 
 })
+
+app.get("/backOfCard", async (req, res) => {
+    backImage = await fetch("https://deckofcardsapi.com/static/img/back.png");
+    res.send(backImage);
+}
+
+)
 
 app.listen(port, () => {
     console.log("Server running at http://localhost:" + port);
