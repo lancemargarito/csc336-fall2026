@@ -138,9 +138,9 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     let result = compareCards(currentCard,nextCard)
 
     if (
-        ((clickedButton == "lower") && (result == 0))
+        ((clickedButton.value == "lower") && (result == 0))
         ||
-        ((clickedButton == "higher") && (result == 1))
+        ((clickedButton.value == "higher") && (result == 1))
     ) // If the player was right, add one to their streak.
     {
         streak += 1;
@@ -152,17 +152,11 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     currentCard = nextCard;
     nextCard = await drawCard(currentDeck);
 
-    console.log(currentCard);
-    console.log(nextCard)
-
     render();
 
-    
-
-
-    console.log(clickedButton.value);
-
-    // REMEMBER TO UPDATE STREAK IF CORRECT
+    console.log(currentCard.value + currentCard.suit);
+    console.log(nextCard.value + nextCard.suit)
+    console.log("Next card will be: " + clickedButton.value);
 
 }) 
 
