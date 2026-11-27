@@ -79,7 +79,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     discardCard(currentCard.code);
     currentCard = nextCard;
-    nextCard = drawCard(currentDeck);
+    nextCard = await drawCard(currentDeck);
 
     console.log(currentCard);
     console.log(nextCard)
