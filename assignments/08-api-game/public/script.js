@@ -31,6 +31,7 @@ async function discardCard(code) {
 
 function render() {
     cardDiv.innerHTML = "";
+    lowerHigherForm.innerHTML = "";
 
     let currentCardDiv = document.createElement("div");
     currentCardDiv.innerHTML = "The current card is the " + currentCard.value + " of " + currentCard.suit;
