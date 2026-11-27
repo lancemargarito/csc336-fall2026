@@ -23,7 +23,6 @@ async function drawCard(deck) {
 }
 
 async function discardCard(code) {
-
     let discard = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck + "/" + code);
     let json = await discard.json();
     return json;
@@ -64,7 +63,7 @@ startForm.addEventListener("submit", async (e) => {
     nextCard = await drawCard(currentDeck)
 
     render();
-
+    
     startForm.remove();
 
     // When the player hits start, it draws a card. The player then has to guess 
@@ -81,6 +80,10 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     discardCard(currentCard.code);
     currentCard = nextCard;
     nextCard = drawCard(currentDeck);
+
+    console.log(currentCard);
+    console.log(nextCard)
+
 
     render();
 
