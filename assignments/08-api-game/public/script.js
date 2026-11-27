@@ -135,8 +135,18 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     let clickedButton = e.submitter; // Checking which button was clicked.
 
-    result = compare
+    let result = compareCards(currentCard,nextCard)
 
+    if (
+        ((clickedButton == "lower") && (result == 0))
+        ||
+        ((clickedButton == "higher") && (result == 1))
+    ) // If the player was right, add one to their streak.
+    {
+        streak += 1;
+    } else { // If the player was wrong, reset their streak.
+        streak = 0;
+    }
 
     discardCard(currentCard.code);
     currentCard = nextCard;
