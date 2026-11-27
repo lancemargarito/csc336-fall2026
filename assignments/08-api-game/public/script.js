@@ -148,7 +148,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
         streak = 0;
     }
 
-    discardCard(currentCard.code);
+    await discardCard(currentCard.code);
     currentCard = nextCard;
     nextCard = await drawCard(currentDeck);
 
