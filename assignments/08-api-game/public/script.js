@@ -95,7 +95,7 @@ function compareCards(current, next) {
     currentSuit = suits[current.suit];
     nextSuit = suits[next.suit];
 
-    if (nextValue > current) {
+    if (nextValue > currentValue) {
         return 1;
     } else if (currentValue > nextValue) {
         return 0;
