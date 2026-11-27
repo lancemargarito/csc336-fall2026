@@ -19,9 +19,6 @@ let games = database.collection("games")
 
 // First, I want to make a route that fetches the outside API to create a new deck.
 
-let deck_id;
-let current_card;
-
 app.get("/newdeck", async (req,res) => {
     let response = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
     let json = await response.json();
@@ -37,8 +34,6 @@ app.get("/drawcard/:deckID", async (req, res) => {
 
     res.send(json.cards[0]) // Accessing object inside array, inside of cards, inside of returned json.
 }) // Drawing a card from a given deck.
-
-
 
 app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
