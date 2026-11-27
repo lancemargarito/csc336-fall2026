@@ -10,6 +10,23 @@ let currentDeck;
 let currentCard;
 let nextCard;
 
+let streak = 0;
+
+let specialCards = {
+    "ACE": 1,
+    "JACK": 11,
+    "QUEEN": 12,
+    "KING": 13
+}
+
+let suits = {
+    "SPADES": 4,
+    "HEARTS": 3, 
+    "DIAMONDS": 2, 
+    "CLUBS": 1 
+} // The closest thing I can find to a universally agreed upon suit ranking is
+// reverse alphabetical so that's what this game will use.
+
 async function getDeck() {
     let newDeck = await fetch("https://card-game-0kfd.onrender.com/newdeck");
     let json = await newDeck.json();
@@ -37,8 +54,12 @@ function render() {
     cardDiv.append(currentCardDiv);
 
     let questionDiv = document.createElement("div");
-    questionDiv.innerHTML = "Will the next card be of higher or lower value?"
+    questionDiv.innerHTML = "Will the next card be of higher or lower value?";
     cardDiv.append(questionDiv);
+
+    let streakDiv = document.createElement("div");
+    streakDiv.innerHTML = "Your streak is " + streak + "!";
+    cardDiv.append(streakDiv);
 
     let lowerButton = document.createElement("button");
     lowerButton.value = "lower";
@@ -51,6 +72,43 @@ function render() {
     lowerHigherForm.append(higherButton);
 
 } 
+
+function compareCards(current, next) {
+    let currentValue = 0;
+    let nextValue = 0;
+
+    let currentSuit = 0;
+    let nextSuit = 0;
+
+    if (!(current.value in specialCards)) {
+        currentValue = Number(current.value);
+    } else {
+        currentValue = specialCards[current.value];
+    }
+
+    if (!(next.value in specialCards)) {
+        nextValue = Number(next.value);
+    } else {
+        nextValue = specialCards[next.value];
+    }
+
+    currentSuit = suits[current.suit];
+    nextSuit = suits[next.suit];
+
+    if (nextValue > current) {
+        return 1;
+    } else if (currentValue > nextValue) {
+        return 0;
+    } else {
+        if (nextSuit > currentSuit) {
+            return 1;
+        } else if (currentSuit > nextSuit) {
+            return 0;
+        }
+    }
+        
+}  
+// This function turns the value and suits of both inputted cards into numerical values. Then, it compares them, returning 1 if the Next card is bigger or 0 if the currentCard is bigger.
 
 startForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -77,6 +135,9 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     let clickedButton = e.submitter; // Checking which button was clicked.
 
+    result = compare
+
+
     discardCard(currentCard.code);
     currentCard = nextCard;
     nextCard = await drawCard(currentDeck);
@@ -84,10 +145,14 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     console.log(currentCard);
     console.log(nextCard)
 
-
     render();
 
+    
+
+
     console.log(clickedButton.value);
+
+    // REMEMBER TO UPDATE STREAK IF CORRECT
 
 }) 
 
