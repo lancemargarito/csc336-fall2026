@@ -39,7 +39,7 @@ app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
     let deckID = req.params.deckID;
 
-    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash" + "/add/?cards=" + cardCode);
+    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/add/?cards=" + cardCode);
 
     res.send("Discarded.") 
 })
