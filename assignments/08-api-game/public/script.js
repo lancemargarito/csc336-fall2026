@@ -41,8 +41,6 @@ async function drawCard() {
 
 async function discardCard(code) {
     let discard = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck.deck_id + "/" + code);
-    let json = await discard.json();
-    return json;
 }
 
 async function returnCardsAndShuffle() {
@@ -162,8 +160,6 @@ lowerHigherForm.addEventListener("submit", async (e) => {
         streak = 0;
     }
     
-    console.log("made it here");
-
     await discardCard(currentCard.cards[0].code);
     currentCard = nextCard;
 

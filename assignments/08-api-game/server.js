@@ -40,8 +40,6 @@ app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let deckID = req.params.deckID;
 
     await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/add/?cards=" + cardCode);
-
-    res.send("Discarded.") 
 })
 
 app.get("/returnCardsAndShuffle/:deckID", async (req, res) => {
@@ -53,7 +51,6 @@ app.get("/returnCardsAndShuffle/:deckID", async (req, res) => {
     await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/shuffle/");
     // Shuffle the deck.
 
-    res.send("Returned discarded cards and reshuffled deck.");
 })
 
 
