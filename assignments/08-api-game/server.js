@@ -55,7 +55,7 @@ app.get("/returnCardsAndShuffle/:deckID", async (req, res) => {
     res.send(jsonOne,jsonTwo);
 })
 
-app.post("postScore/:user/:score", async (req, res) => {
+app.post("/postScore/:user/:score", async (req, res) => {
     let username = req.params.user;
     let score = req.params.score;
 
