@@ -162,6 +162,8 @@ lowerHigherForm.addEventListener("submit", async (e) => {
         streak = 0;
     }
     
+    console.log("made it here");
+
     await discardCard(currentCard.cards[0].code);
     currentCard = nextCard;
 
