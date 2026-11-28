@@ -59,7 +59,10 @@ app.post("/postScore/:user/:score", async (req, res) => {
     let username = req.params.user;
     let score = req.params.score;
 
-    let scoreSubmission = {username : score};
+    let scoreSubmission = {
+        username : username,
+        score: score
+    };
 
     await games.insertOne(scoreSubmission);
 
