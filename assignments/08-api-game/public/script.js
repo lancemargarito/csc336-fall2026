@@ -149,7 +149,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     let clickedButton = e.submitter; // Checking which button was clicked.
 
-    let result = compareCards(currentCard,nextCard)
+    let result = compareCards(currentCard,nextCard);
 
     if (
         ((clickedButton.value == "lower") && (result == 0))
@@ -166,13 +166,12 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     currentCard = nextCard;
 
     console.log("Remaining cards: " + currentDeck.remaining);
+    nextCard = await drawCard();
 
     if (currentDeck.remaining < 1) {
         console.log("Shuffling the deck...");
         await returnCardsAndShuffle();
     }
-
-    nextCard = await drawCard();
 
     render();
 
