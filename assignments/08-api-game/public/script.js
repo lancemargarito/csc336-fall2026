@@ -40,11 +40,15 @@ async function drawCard() {
 }
 
 async function discardCard(code) {
-    await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck.deck_id + "/" + code);
+    let response = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck.deck_id + "/" + code);
+    let json = await response.json();
+    return json;
 }
 
 async function returnCardsAndShuffle() {
-    await fetch("https://card-game-0kfd.onrender.com/returnCardsAndShuffle/" + currentDeck.deck_id);
+    let response = await fetch("https://card-game-0kfd.onrender.com/returnCardsAndShuffle/" + currentDeck.deck_id);
+    let json = await response.json();
+    return json;
 }
 
 function render() {
