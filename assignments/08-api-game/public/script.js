@@ -135,6 +135,9 @@ startForm.addEventListener("submit", async (e) => {
     // When the player hits start, it draws a card. The player then has to guess 
     // whether the next will be higher or lower. The lowerHigherForm event listener takes
     // over from.
+
+    console.log(currentCard.cards[0].value + " of " + currentCard.cards[0].suit);
+    console.log(nextCard.cards[0].value + " of " + nextCard.cards[0].suit);
     
 })
 
@@ -174,13 +177,12 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     nextCard = await drawCard();
 
-    console.log("Remaining cards: " + currentCard.remaining);
-
-    render();
-
     console.log(currentCard.cards[0].value, currentCard.cards[0].suit);
     console.log(nextCard.cards[0].value, nextCard.cards[0].suit)
-    console.log("Next card will be: " + clickedButton.value);
+    console.log("Remaining cards: " + currentCard.remaining);
+    console.log("Button clicked: " + clickedButton.value)
+
+    render();
 
 }) 
 
