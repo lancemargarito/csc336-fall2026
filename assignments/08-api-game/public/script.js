@@ -160,7 +160,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
         streak = 0;
     }
     
-    await discardCard(currentCard.cards[0].code);
+    let discard = await discardCard(currentCard.cards[0].code); 
     currentCard = nextCard;
     nextCard = await drawCard();
 
@@ -168,7 +168,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     if (currentCard.remaining < 1) { // Card json has the number of remaining cards in deck (that aren't in a pile).
         console.log("Shuffling the deck...");
-        await returnCardsAndShuffle();
+        let shuffle = await returnCardsAndShuffle();
     }
 
     render();

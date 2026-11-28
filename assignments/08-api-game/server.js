@@ -17,12 +17,9 @@ console.log("Connected to MongoDB");
 let database = client.db("assignment08")
 let games = database.collection("games")
 
-// First, I want to make a route that fetches the outside API to create a new deck.
-
 app.get("/newdeck", async (req,res) => {
     let response = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
     let json = await response.json();
-
     res.send(json)
 }) // Get a new deck.
 
@@ -39,18 +36,23 @@ app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
     let deckID = req.params.deckID;
 
-    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/add/?cards=" + cardCode);
+    let response = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/add/?cards=" + cardCode);
+    let json = await response.json();
+    res.send(json);
 })
 
 app.get("/returnCardsAndShuffle/:deckID", async (req, res) => {
     let deckID = req.params.deckID;
 
-    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/return/");
+    let response = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/return/");
     // Returns everything from the discarded ("trash") cards pile back to the main deck.
+    let jsonOne = await response.json();
     
     await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/shuffle/");
     // Shuffle the deck.
-
+    let jsonTwo = await response.json();
+    
+    res.send(jsonOne,jsonTwo)
 })
 
 
