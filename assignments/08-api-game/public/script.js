@@ -70,16 +70,50 @@ function render() {
     let lowerButton = document.createElement("button");
     lowerButton.value = "lower";
     lowerButton.innerHTML = "Lower!";
-    lowerButton.id = "lowerButton";
     lowerHigherForm.append(lowerButton);
 
     let higherButton = document.createElement("button");
     higherButton.value = "higher";
     higherButton.innerHTML = "Higher!";
-    higherButton.id = "higherButton";
     lowerHigherForm.append(higherButton);
 
 } 
+
+async function lossRender() {
+    cardDiv.innerHTML = "";
+    lowerHigherForm.innerHTML = "";
+
+    let lostDiv = document.createElement("div");
+    lostDiv.innerHTML = "You lost!"
+    cardDiv.append(lostDiv);
+
+    let streakDiv = document.createElement("div");
+    streakDiv.innerHTML = "Your streak was " + streak + "!";
+    cardDiv.append(streakDiv);
+
+    let scoreSubmissionForm = document.createElement("form");
+    lowerHigherForm.append(scoreSubmissionForm);
+
+    let usernameInput = document.createElement("input");
+    usernameInput.placeholder = "Enter username";
+    scoreSubmissionForm.append(usernameInput);
+
+    let submitButton = document.createElement("button");
+    submitButton.innerHTML = "Submit"
+    scoreSubmissionForm.append(submitButton);
+    
+    scoreSubmissionForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        postScore(String(usernameInput.value), Number(streak));
+
+    })
+}
+
+async function postScore(username, score) {
+    let message = await fetch("https://card-game-0kfd.onrender.com/postScore/" + username + "/" + score)
+    let json = message.json();
+    return json;
+}
 
 function compareCards(current, next) {
     let currentValue = 0;
@@ -145,13 +179,6 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     e.preventDefault(); // Preventing page from loading after clicking either button.
 
-    let lowerButton = document.querySelector("#lowerButton");
-    let higherButton = document.querySelector("#higherButton");
-
-    // Remove buttons so they can't be spammed, causing current and next card to briefly be the same.
-    // lowerButton.remove();
-    // higherButton.remove();
-
     let clickedButton = e.submitter; // Checking which button was clicked.
 
     let result = compareCards(currentCard.cards[0],nextCard.cards[0]);
@@ -163,12 +190,18 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     ) // If the player was right, add one to their streak.
     {
         streak += 1;
-    } else { // If the player was wrong, reset their streak.
-        streak = 0;
+    } else { // If the player was wrong.
+
+
+        
+
+
     }
     
     let discard = await discardCard(currentCard.cards[0].code); 
     currentCard = nextCard;
+
+     console.log("Remaining cards: " + currentCard.remaining);
 
     if (nextCard.remaining < 1) { // Card json has the number of remaining cards in deck (that aren't in a pile).
         console.log("Shuffling the deck...");
@@ -177,9 +210,8 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     nextCard = await drawCard();
 
-    console.log(currentCard.cards[0].value, currentCard.cards[0].suit);
-    console.log(nextCard.cards[0].value, nextCard.cards[0].suit)
-    console.log("Remaining cards: " + currentCard.remaining);
+    console.log("Current card: " + currentCard.cards[0].value, currentCard.cards[0].suit);
+    console.log("Next card: " + nextCard.cards[0].value, nextCard.cards[0].suit)
     console.log("Button clicked: " + clickedButton.value)
 
     render();
