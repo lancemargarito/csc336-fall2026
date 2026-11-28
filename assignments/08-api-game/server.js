@@ -48,11 +48,11 @@ app.get("/returnCardsAndShuffle/:deckID", async (req, res) => {
     // Returns everything from the discarded ("trash") cards pile back to the main deck.
     let jsonOne = await response.json();
     
-    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/shuffle/");
+    let responseTwo = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/shuffle/");
     // Shuffle the deck.
-    let jsonTwo = await response.json();
+    let jsonTwo = await responseTwo.json();
     
-    res.send(jsonOne,jsonTwo)
+    res.send(jsonOne,jsonTwo);
 })
 
 
