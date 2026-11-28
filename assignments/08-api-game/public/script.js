@@ -30,19 +30,23 @@ let suits = {
 async function getDeck() {
     let newDeck = await fetch("https://card-game-0kfd.onrender.com/newdeck");
     let json = await newDeck.json();
-    return json.deck_id; // Only intial necessary part to hand over to frontend is deck ID.
+    return json;
 }
 
-async function drawCard(deck) {
-    let card = await fetch("https://card-game-0kfd.onrender.com/drawcard/" + deck)
+async function drawCard() {
+    let card = await fetch("https://card-game-0kfd.onrender.com/drawcard/" + currentDeck.deck_id)
     let json = await card.json();
     return json;
 }
 
 async function discardCard(code) {
-    let discard = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck + "/" + code);
+    let discard = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck.deck_id + "/" + code);
     let json = await discard.json();
     return json;
+}
+
+async function returnCardsAndShuffle() {
+    await fetch("https://card-game-0kfd.onrender.com/returnCardsAndShuffle/" + currentDeck.deck_id);
 }
 
 function render() {
@@ -117,10 +121,10 @@ startForm.addEventListener("submit", async (e) => {
     currentDeck = await getDeck();
 
     console.log("Deck:")
-    console.log(currentDeck)
+    console.log(currentDeck.deck_id)
 
-    currentCard = await drawCard(currentDeck);
-    nextCard = await drawCard(currentDeck)
+    currentCard = await drawCard();
+    nextCard = await drawCard()
 
     render();
     
@@ -133,15 +137,15 @@ startForm.addEventListener("submit", async (e) => {
 })
 
 lowerHigherForm.addEventListener("submit", async (e) => {
+
     e.preventDefault(); // Preventing page from loading after clicking either button.
 
     let lowerButton = document.querySelector("#lowerButton");
     let higherButton = document.querySelector("#higherButton");
 
+    // Remove buttons so they can't be spammed, causing current and next card to briefly be the same.
     lowerButton.remove();
     higherButton.remove();
-
-    // Remove buttons so they can't be spammed, causing current and next card to briefly be the same.
 
     let clickedButton = e.submitter; // Checking which button was clicked.
 
@@ -160,7 +164,15 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     
     await discardCard(currentCard.code);
     currentCard = nextCard;
-    nextCard = await drawCard(currentDeck);
+
+    console.log("Remaining cards: " + currentDeck.remaining);
+
+    if (currentDeck.remaining < 1) {
+        console.log("Shuffling the deck...");
+        await returnCardsAndShuffle();
+    }
+
+    nextCard = await drawCard();
 
     render();
 

@@ -39,30 +39,24 @@ app.get("/discard/:deckID/:cardCode", async (req,res) => {
     let cardCode = req.params.cardCode;
     let deckID = req.params.deckID;
 
-    let pile = await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash" + "/add/?cards=" + cardCode);
-    let json = await pile.json();
+    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash" + "/add/?cards=" + cardCode);
 
-    console.log(cardCode + "discarded")
-
-    res.send(json) // I don't actually need anything sent back, but I'm having the server send the response so I can verify on the front end that the card has been discarded from the actual deck.
+    res.send("Discarded.") 
 })
 
-app.get("/guess/:higherOrLower", async (req, res) => {
-    let guess = req.params.higherOrLower;
+app.get("/returnCardsAndShuffle/:deckID", async (res, req) => {
+    let deckID = req.params.deckID;
+
+    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/return/");
+    // Returns everything from the discarded ("trash") cards pile back to the main deck.
     
-    if (guess == "higher") {
-        console.log("higher");
-    } 
-    if (guess == "lower") {
-        console.log("lower");
-    }
+    await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/shuffle/");
+    // Shuffle the deck.
 
-    let nextCard = await fetch("https://deckofcardsapi.com/api/deck/xnek1tte1dvu/draw/?count=52");
-    let nextCardJson = await nextCard.json();
-
-    res.send(nextCardJson);
-
+    res.send("Returned discarded cards and reshuffled deck.");
 })
+
+
 
 app.listen(port, () => {
     console.log("Server running.");
