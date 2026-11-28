@@ -44,7 +44,7 @@ app.get("/discard/:deckID/:cardCode", async (req,res) => {
     res.send("Discarded.") 
 })
 
-app.get("/returnCardsAndShuffle/:deckID", async (res, req) => {
+app.get("/returnCardsAndShuffle/:deckID", async (req, res) => {
     let deckID = req.params.deckID;
 
     await fetch("https://deckofcardsapi.com/api/deck/" + deckID + "/pile/trash/return/");
