@@ -191,11 +191,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     {
         streak += 1;
     } else { // If the player was wrong.
-
-
-        
-
-
+        lossRender();
     }
     
     let discard = await discardCard(currentCard.cards[0].code); 
