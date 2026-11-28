@@ -149,7 +149,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     let clickedButton = e.submitter; // Checking which button was clicked.
 
-    let result = compareCards(currentCard,nextCard);
+    let result = compareCards(currentCard.cards[0],nextCard.cards[0]);
 
     if (
         ((clickedButton.value == "lower") && (result == 0))
@@ -162,21 +162,22 @@ lowerHigherForm.addEventListener("submit", async (e) => {
         streak = 0;
     }
     
-    await discardCard(currentCard.code);
+    await discardCard(currentCard.cards[0].code);
     currentCard = nextCard;
 
     console.log("Remaining cards: " + currentDeck.remaining);
-    nextCard = await drawCard();
-
-    if (currentDeck.remaining < 1) {
+  
+    if (currentCard.remaining < 1) { // Card json has the number of remaining cards in deck (that aren't in a pile).
         console.log("Shuffling the deck...");
         await returnCardsAndShuffle();
     }
 
+    nextCard = await drawCard();
+
     render();
 
-    console.log(currentCard.value + currentCard.suit);
-    console.log(nextCard.value + nextCard.suit)
+    console.log(currentCard.cards[0].value + currentCard.cards[0].suit);
+    console.log(nextCard.cards[0].value + nextCard.cards[0].suit)
     console.log("Next card will be: " + clickedButton.value);
 
 }) 
