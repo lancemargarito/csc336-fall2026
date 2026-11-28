@@ -173,8 +173,8 @@ lowerHigherForm.addEventListener("submit", async (e) => {
 
     render();
 
-    console.log(currentCard.cards[0].value + currentCard.cards[0].suit);
-    console.log(nextCard.cards[0].value + nextCard.cards[0].suit)
+    console.log(currentCard.cards[0].value, currentCard.cards[0].suit);
+    console.log(nextCard.cards[0].value, nextCard.cards[0].suit)
     console.log("Next card will be: " + clickedButton.value);
 
 }) 
