@@ -64,11 +64,13 @@ function render() {
     let lowerButton = document.createElement("button");
     lowerButton.value = "lower";
     lowerButton.innerHTML = "Lower!";
+    lowerButton.id = "lowerButton";
     lowerHigherForm.append(lowerButton);
 
     let higherButton = document.createElement("button");
     higherButton.value = "higher";
     higherButton.innerHTML = "Higher!";
+    higherButton.id = "higherButton";
     lowerHigherForm.append(higherButton);
 
 } 
@@ -133,6 +135,14 @@ startForm.addEventListener("submit", async (e) => {
 lowerHigherForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
 
+    let lowerButton = document.querySelector("lowerButton");
+    let higherButton = document.querySelector("higherButton");
+
+    lowerButton.remove();
+    higherButton.remove();
+
+    // Remove buttons so they can't be spammed, causing current and next card to briefly be the same.
+
     let clickedButton = e.submitter; // Checking which button was clicked.
 
     let result = compareCards(currentCard,nextCard)
@@ -147,7 +157,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     } else { // If the player was wrong, reset their streak.
         streak = 0;
     }
-
+    
     await discardCard(currentCard.code);
     currentCard = nextCard;
     nextCard = await drawCard(currentDeck);
