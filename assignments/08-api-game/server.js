@@ -14,13 +14,13 @@ let client = new MongoClient(process.env.MONGODB_URI);
 await client.connect();
 console.log("Connected to MongoDB");
 
-let database = client.db("assignment08")
-let games = database.collection("games")
+let database = client.db("cardGameDB");
+let streakScores = database.collection("streakScores");
 
 app.get("/newdeck", async (req,res) => {
     let response = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
     let json = await response.json();
-    res.send(json)
+    res.send(json);
 }) // Get a new deck.
 
 app.get("/drawcard/:deckID", async (req, res) => {
@@ -64,9 +64,11 @@ app.post("/postScore/:user/:score", async (req, res) => {
         score: score
     };
 
-    await games.insertOne(scoreSubmission);
+    await streakScores.insertOne(scoreSubmission);
 
-    res.send("Posted!")
+    let test = streakScores.find({});
+    let allScores = await test.toArray();
+    res.json(allScores);
 })
 
 

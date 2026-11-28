@@ -110,7 +110,7 @@ async function lossRender() {
 }
 
 async function postScore(username, score) {
-    let message = await fetch("https://card-game-0kfd.onrender.com/postScore/" + username + "/" + score)
+    let message = await fetch("https://card-game-0kfd.onrender.com/postScore/" + username + "/" + score);
     let json = message.json();
     return json;
 }
