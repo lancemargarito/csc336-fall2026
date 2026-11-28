@@ -135,8 +135,8 @@ startForm.addEventListener("submit", async (e) => {
 lowerHigherForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Preventing page from loading after clicking either button.
 
-    let lowerButton = document.querySelector("lowerButton");
-    let higherButton = document.querySelector("higherButton");
+    let lowerButton = document.querySelector("#lowerButton");
+    let higherButton = document.querySelector("#higherButton");
 
     lowerButton.remove();
     higherButton.remove();
