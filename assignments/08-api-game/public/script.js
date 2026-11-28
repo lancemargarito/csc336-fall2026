@@ -142,8 +142,8 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     let higherButton = document.querySelector("#higherButton");
 
     // Remove buttons so they can't be spammed, causing current and next card to briefly be the same.
-    lowerButton.remove();
-    higherButton.remove();
+    // lowerButton.remove();
+    // higherButton.remove();
 
     let clickedButton = e.submitter; // Checking which button was clicked.
 
