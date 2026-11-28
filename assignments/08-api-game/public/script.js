@@ -40,7 +40,7 @@ async function drawCard() {
 }
 
 async function discardCard(code) {
-    let discard = await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck.deck_id + "/" + code);
+    await fetch("https://card-game-0kfd.onrender.com/discard/" + currentDeck.deck_id + "/" + code);
 }
 
 async function returnCardsAndShuffle() {
@@ -52,7 +52,7 @@ function render() {
     lowerHigherForm.innerHTML = "";
 
     let currentCardDiv = document.createElement("div");
-    currentCardDiv.innerHTML = "The current card is the " + currentCard.value + " of " + currentCard.suit;
+    currentCardDiv.innerHTML = "The current card is the " + currentCard.cards[0].value + " of " + currentCard.cards[0].suit;
     cardDiv.append(currentCardDiv);
 
     let questionDiv = document.createElement("div");
@@ -163,7 +163,7 @@ lowerHigherForm.addEventListener("submit", async (e) => {
     await discardCard(currentCard.cards[0].code);
     currentCard = nextCard;
 
-    console.log("Remaining cards: " + currentDeck.remaining);
+    console.log("Remaining cards: " + currentCard.remaining);
   
     if (currentCard.remaining < 1) { // Card json has the number of remaining cards in deck (that aren't in a pile).
         console.log("Shuffling the deck...");
